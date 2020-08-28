@@ -1,4 +1,6 @@
-This is a basic password management application. The executable in the repository is only good for Windows systems. It is currently not very secure at all. Other than the fact that not many people use hdf5 anymore. The interface is designed to be simple and intuitive.
+This is the linux version of of the other password manager. The main differences are that this implementation is able to list all url's that it has a stored password, and it also encrypts the pass_db.hdf5 data base.
+
+Setup:
 
 Usage:
 
