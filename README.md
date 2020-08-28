@@ -1,8 +1,9 @@
 This is the gnu/linux version of of the other password manager. The main differences are that this implementation is able to list all url's that it has a stored password, and it also encrypts the pass_db.hdf5 data base.
 
-Dependency: ccrypt
+Dependency: ccrypt h5py
 
 sudo apt install ccrypt
+pip install h5py
 
 Setup:
 
