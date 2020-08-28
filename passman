@@ -1,0 +1,80 @@
+#!/bin/bash
+
+work_dir="$HOME/PasswordManager"
+hash_loc="$work_dir/pass.key"
+priv_hash_loc="$work_dir/.pass"
+pass_db="pass_db.hdf5"
+encrypt='-c'
+decrypt='-d'
+
+usage(){
+	echo "Usage:"
+	echo "   To create a new data base"
+	echo "       passman -e <url>"
+	echo "   To encrypt an existing data base"
+	echo "       passman -e"
+	echo "   Working with a pre-existing data base"
+	echo "       passman -d <option> <url>"
+}
+
+create_pass_hash(){
+	echo "Please create password: "
+	read -s passw
+	echo $passw > $priv_hash_loc
+	sha256sum $priv_hash_loc | awk '{print $1}' > $hash_loc
+	rm -f $priv_hash_loc
+}
+
+if [[ $# == 0 ]]
+then
+	usage
+	exit 1
+fi
+
+if [ $1 = "--help" ]
+then
+	usage
+	exit 1
+fi
+
+case $1 in
+	'-e')
+		if [ -f "$work_dir/$pass_db" ]
+		then
+			create_pass_hash
+			passman_crypt $encrypt $pass_db
+		else
+			python3 $work_dir/pass_manager.py --create $2 > /dev/stdout
+			create_pass_hash
+			passman_crypt $encrypt $pass_db
+		fi
+		;;
+	'-d')
+		if [ -f "$work_dir/$pass_db.cpt" ]
+		then
+			key=`cat $hash_loc`
+			echo "Please enter password: "
+			read -s passw
+			echo $passw > $priv_hash_loc
+			hash=`sha256sum $priv_hash_loc | awk '{print $1}'`
+			rm -f $priv_hash_loc
+			if [ $hash == $key ]
+			then
+				passman_crypt $decrypt $pass_db
+				python3 $work_dir/pass_manager.py $2 $3 > /dev/stdout
+			else
+				echo "Wrong password supplied"
+				exit 1
+			fi
+			passman_crypt $encrypt $pass_db
+		else
+			echo "Encrypted file does not exist"
+			exit 1
+		fi
+		;;
+	*)
+		usage
+		exit 1
+		;;
+esac
+

@@ -1,0 +1,28 @@
+#!/bin/bash
+
+work_dir="$HOME/PasswordManager"
+
+case $1 in
+	'-c')
+		if [ -f "$work_dir/$2" ]
+		then
+			ccencrypt "$work_dir/$2" > /dev/stdout
+		else
+			echo No such file
+			exit 1
+		fi
+		;;
+	'-d')
+		if [ -f "$work_dir/$2.cpt" ]
+		then
+			ccdecrypt "$work_dir/$2.cpt" > /dev/stdout
+		else
+			echo No such file
+			exit 1
+		fi
+		;;
+	*)
+		echo need input
+		exit 1
+		;;
+esac
