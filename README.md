@@ -1,14 +1,24 @@
-This is the linux version of of the other password manager. The main differences are that this implementation is able to list all url's that it has a stored password, and it also encrypts the pass_db.hdf5 data base.
+This is the gnu/linux version of of the other password manager. The main differences are that this implementation is able to list all url's that it has a stored password, and it also encrypts the pass_db.hdf5 data base.
 
 Setup:
 
-Usage:
+Run ./setup.sh
 
-open terminal (cmd) and type:
+Operation:
 
-cd C:\<path_to_exe_dir>
+passman is the only program that you will have to directly run.
 
-pass_manager.exe <option> <url> <new_password=null>
+usage passman:
+
+passman <option> <args>
+
+Options:
+-e arg: If arg=NULL, passman encrypts the pass_db.hdf5 file. If arg=url,passman creates the pass_db.hdf5 file and then encrypts it.
+-d args: passman will decrypt the pass_db.hdf5 file. The args variables are the <option> <url> arguments for pass_manager.py.
+
+Usage pass_manager.py:
+
+python3 pass_manager.py <option> <url> <new_password=null>
 
 Options:
 
