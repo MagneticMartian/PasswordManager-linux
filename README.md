@@ -1,5 +1,9 @@
 This is the gnu/linux version of of the other password manager. The main differences are that this implementation is able to list all url's that it has a stored password, and it also encrypts the pass_db.hdf5 data base.
 
+Dependency: ccrypt
+
+sudo apt install ccrypt
+
 Setup:
 
 Run ./setup.sh
@@ -10,25 +14,25 @@ passman is the only program that you will have to directly run.
 
 usage passman:
 
-passman <option> <args>
+passman [option] [args]
 
 Options:
 -e arg: If arg=NULL, passman encrypts the pass_db.hdf5 file. If arg=url,passman creates the pass_db.hdf5 file and then encrypts it.
--d args: passman will decrypt the pass_db.hdf5 file. The args variables are the <option> <url> arguments for pass_manager.py.
+-d args: passman will decrypt the pass_db.hdf5 file. The args variables are the [option] [url] arguments for pass_manager.py.
 
 Usage pass_manager.py:
 
-python3 pass_manager.py <option> <url> <new_password=null>
+python3 pass_manager.py [option] [url] [new_password=null]
 
 Options:
 
---create: Creates a new database initalized with <url> and <new_password> is optional
+--create: Creates a new database initalized with [url] and [new_password] is optional
 
---append: add a new <url> with optional <new_password>
+--append: add a new [url] with optional [new_password]
 
---delete: delete a previous <url>
+--delete: delete a previous [url]
 
---read: read password for <url>
+--read: read password for [url]
 
 --list url: lists out all url's currently stored in database.
 
