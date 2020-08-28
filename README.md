@@ -3,6 +3,7 @@ This is the gnu/linux version of of the other password manager. The main differe
 Dependency: ccrypt h5py
 
 sudo apt install ccrypt
+
 pip install h5py
 
 Setup:
