@@ -57,7 +57,7 @@ case $1 in
 			read -s passw
 			echo $passw > $priv_hash_loc
 			hash=`sha256sum $priv_hash_loc | awk '{print $1}'`
-			rm -f $priv_hash_loc
+			shred -zu $priv_hash_loc
 			if [ $hash == $key ]
 			then
 				passman_crypt $decrypt $pass_db
