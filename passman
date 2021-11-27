@@ -22,7 +22,7 @@ create_pass_hash(){
 	read -s passw
 	echo $passw > $priv_hash_loc
 	sha256sum $priv_hash_loc | awk '{print $1}' > $hash_loc
-	rm -f $priv_hash_loc
+	shred -zu $priv_hash_loc
 }
 
 if [[ $# == 0 ]]
